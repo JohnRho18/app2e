@@ -3,53 +3,49 @@ package banking;
 import java.util.Scanner;
 
 public class BankingCode {
-    
-    private int accountNo;
-    private float initialBalance;
+    private final int accountNo;
     private int pin;
+    private float initialBalance;
 
-    public void setAccountNo(int accountNo) {
+    public BankingCode(int accountNo, int pin) {
         this.accountNo = accountNo;
+        this.pin = pin;
+        this.initialBalance = 0.0f;
     }
 
     public int getAccountNo() {
         return accountNo;
     }
 
-    public void setPin(int pin) {
-        this.pin = pin;
-    }
-
     public int getPin() {
         return pin;
     }
     
-   
-    
-    
-    
-    
-    
-    
-    
-    public boolean verifyAccount(int acc, int pn){
-        
-            if(acc == accountNo && pn == pin){
-                return true;
-            }else{
-                return false;
-            }
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
+
+    public boolean verifyAccount(int acc, int pn) {
+        return (this.accountNo == acc && this.pin == pn);
     }
     
-    public int setAccount(){
-        return accountNo;
+    public void viewBalance() {
+        System.out.println("Current balance: " + this.initialBalance);
     }
     
-    public void viewBalance(){
-    
-    
+    public void deposit(float amount) {
+        this.initialBalance += amount;
+        System.out.println("Deposit successful. New balance: " + this.initialBalance);
     }
     
-    
-    
+    public boolean withdraw(float amount) {
+        if (this.initialBalance >= amount) {
+            this.initialBalance -= amount;
+            System.out.println("Withdrawal successful. New balance: " + this.initialBalance);
+            return true;
+        } else {
+            System.out.println("Insufficient balance.");
+            return false;
+        }
+    }
 }
