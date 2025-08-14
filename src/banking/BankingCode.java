@@ -1,51 +1,48 @@
 package banking;
 
-import java.util.Scanner;
-
 public class BankingCode {
-    private final int accountNo;
-    private int pin;
-    private float initialBalance;
 
-    public BankingCode(int accountNo, int pin) {
-        this.accountNo = accountNo;
+    private int accNo;
+    private int pin;
+    private float balance;
+
+    public BankingCode(int accNo, int pin) {
+        this.accNo = accNo;
         this.pin = pin;
-        this.initialBalance = 0.0f;
+        this.balance = 0.0f;
     }
 
-    public int getAccountNo() {
-        return accountNo;
+    public int getAccNo() {
+        return accNo;
     }
 
     public int getPin() {
         return pin;
     }
-    
-    public void setPin(int pin) {
-        this.pin = pin;
+
+    public float getBalance() {
+        return balance;
     }
 
     public boolean verifyAccount(int acc, int pn) {
-        return (this.accountNo == acc && this.pin == pn);
+        return this.accNo == acc && this.pin == pn;
     }
-    
-    public void viewBalance() {
-        System.out.println("Current balance: " + this.initialBalance);
-    }
-    
-    public void deposit(float amount) {
-        this.initialBalance += amount;
-        System.out.println("Deposit successful. New balance: " + this.initialBalance);
-    }
-    
-    public boolean withdraw(float amount) {
-        if (this.initialBalance >= amount) {
-            this.initialBalance -= amount;
-            System.out.println("Withdrawal successful. New balance: " + this.initialBalance);
-            return true;
+
+    public void withdraw(float amount) {
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount;
+            System.out.println("Withdrawal successful. New balance is: " + this.balance);
         } else {
-            System.out.println("Insufficient balance.");
-            return false;
+            System.out.println("Invalid withdrawal amount or insufficient balance.");
+        }
+    }
+
+    public void deposit(float amount) {
+        if (amount > 0) {
+            this.balance += amount;
+            System.out.println("Deposit successful. New balance is: " + this.balance);
+        } else {
+            System.out.println("Invalid deposit amount.");
         }
     }
 }
